@@ -1,5 +1,21 @@
 # Gift List
 
+Start app :  
+``
+npx react-native start
+``  
+Start emulator :   
+``
+npx react-native run-android
+``  
+Si ça fonctionne pas alors que c'est OK :   
+```shell script
+watchman watch-del-all   
+rm -rf node_modules/ && npm cache clean --force && npm install
+npx react-native run-android --reset-cache
+```
+
+
 
 ```javascript
 let databsase = {
