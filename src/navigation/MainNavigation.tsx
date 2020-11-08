@@ -11,10 +11,14 @@ import YearList from '@screens/YearList';
 import GiftList from '@screens/GiftList';
 import Stats from '@screens/Stats';
 import {RootState} from 'store';
+import Loading from 'screens/Loading';
+import GoogleLogin from 'screens/GoogleLogin';
+import CustomDrawerContent from './CustomDrawerContent';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 const TopBar = createMaterialTopTabNavigator();
+const RootStack = createStackNavigator();
 
 const TopTarNavigation = () => (
   <TopBar.Navigator>
@@ -48,13 +52,35 @@ const StackNavigation = () => {
   );
 };
 
-const DrawerNavigation = () => (
-  <NavigationContainer>
-    <Drawer.Navigator>
-      <Drawer.Screen name="UserList" component={StackNavigation} />
-      <Drawer.Screen name="YearList" component={YearList} />
+const DrawerNavigation = () => {
+  const year = useSelector((state: RootState) => state.year.year);
+  return (
+    <Drawer.Navigator
+      drawerContent={(props) => <CustomDrawerContent {...props} />}>
+      <Drawer.Screen name={'Liste Noël ' + year} component={StackNavigation} />
+      <Drawer.Screen name="Gérer mes listes" component={YearList} />
     </Drawer.Navigator>
-  </NavigationContainer>
-);
+  );
+};
 
-export default DrawerNavigation;
+const RootStackNavigation = () => {
+  const isLoaded = useSelector((state: RootState) => state.auth.isLoaded);
+  const user = useSelector((state: RootState) => state.auth.user);
+  if (isLoaded) {
+    return <Loading />;
+  }
+
+  return (
+    <NavigationContainer>
+      <RootStack.Navigator headerMode="none">
+        {user == null ? (
+          <RootStack.Screen name="GoogleLogin" component={GoogleLogin} />
+        ) : (
+          <RootStack.Screen name="Drawer" component={DrawerNavigation} />
+        )}
+      </RootStack.Navigator>
+    </NavigationContainer>
+  );
+};
+
+export default RootStackNavigation;

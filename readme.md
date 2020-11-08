@@ -12,7 +12,7 @@ Si ça fonctionne pas alors que c'est OK :
 ```shell script
 watchman watch-del-all   
 rm -rf node_modules/ && npm cache clean --force && npm install
-npx react-native run-android --reset-cache
+npx react-native start --reset-cache
 ```
 
 
@@ -53,6 +53,9 @@ let databsase = {
 
         }
     },
+    "years": [
+      2020, 2021, 2022 
+    ]   
 }
 
 ```

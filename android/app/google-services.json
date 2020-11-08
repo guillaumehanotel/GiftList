@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "985593088284",
+    "firebase_url": "https://christmaslist-75c31.firebaseio.com",
+    "project_id": "christmaslist-75c31",
+    "storage_bucket": "christmaslist-75c31.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:985593088284:android:115a36117b4688892492d9",
+        "android_client_info": {
+          "package_name": "com.giftlist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "985593088284-2sj4vvb437if8t641ugvg8s1h14rlnss.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.giftlist",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "985593088284-kfvd5t6lhune0dd6jtm1m8jpfaj4l4a2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8auZ_b-7DKOhapKLgwA1uNqzu3DhV9J4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "985593088284-kfvd5t6lhune0dd6jtm1m8jpfaj4l4a2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
