@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {View, TouchableOpacity, StyleSheet} from 'react-native';
 import {Icon} from 'react-native-elements';
-import CreatePerson from 'screens/CreatePerson';
-import CreateGift from 'screens/CreateGift';
+import CreatePerson from 'screens/person/New';
+import CreateGift from 'screens/gift/New';
 import ButtonNewItem, {ButtonNewItemType} from 'components/ButtonNewItem';
 
 const ButtonNew = () => {
@@ -28,10 +28,16 @@ const ButtonNew = () => {
         onPress={() => setdisplayBtnNewItem(!displayBtnNewItem)}>
         <Icon name="plus" type="font-awesome-5" color="white" />
       </TouchableOpacity>
-      {displayBtnNewItem &&
-        buttonNewItems.map((item, index) => (
-          <ButtonNewItem key={index} item={item} index={index} />
+      <View style={styles.buttons}>
+        {buttonNewItems.map((item, index) => (
+          <ButtonNewItem
+            key={index}
+            item={item}
+            index={index}
+            displayBtnNewItem={displayBtnNewItem}
+          />
         ))}
+      </View>
     </View>
   );
 };
@@ -47,6 +53,15 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: -400,
     right: 40,
+  },
+  buttons: {
+    flex: 1,
+    height: 130,
+    width: 210,
+    bottom: -340,
+    right: 40,
+    position: 'absolute',
+    justifyContent: 'space-around',
   },
 });
 

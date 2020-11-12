@@ -1,11 +1,13 @@
 # Gift List
 
+## Utils
 Start app :  
 ``
 npx react-native start
 ``  
 Start emulator :   
 ``
+~/Android/Sdk/emulator/emulator -avd Nexus_5_API_30&
 npx react-native run-android
 ``  
 Si ça fonctionne pas alors que c'est OK :   
@@ -15,8 +17,13 @@ rm -rf node_modules/ && npm cache clean --force && npm install
 npx react-native start --reset-cache
 ```
 
+## TODO
 
+- https://christmas-days.anvil.app/_/api/get_days
+- I18N
+- Controle Input utilisateur
 
+## DB Schema
 ```javascript
 let databsase = {
     "users": { // avec google auth

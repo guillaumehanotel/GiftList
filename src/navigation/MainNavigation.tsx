@@ -6,16 +6,17 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {Icon} from 'react-native-elements';
 import {useSelector} from 'react-redux';
-import UserList from '@screens/UserList';
-import YearList from '@screens/YearList';
-import GiftList from '@screens/GiftList';
-import Stats from '@screens/Stats';
+import {Container, Root} from 'native-base';
 import {RootState} from 'store';
+import UserList from 'screens/person/List';
+import YearList from '@screens/YearList';
+import GiftList from 'screens/gift/List';
+import Stats from '@screens/stats';
 import Loading from 'screens/Loading';
-import GoogleLogin from 'screens/GoogleLogin';
+import GoogleLogin from 'screens/auth/GoogleLogin';
 import CustomDrawerContent from './CustomDrawerContent';
-import CreatePerson from 'screens/CreatePerson';
-import CreateGift from 'screens/CreateGift';
+import CreatePerson from 'screens/person/New';
+import CreateGift from 'screens/gift/New';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -31,27 +32,12 @@ const TopTarNavigation = () => (
 );
 
 const StackNavigation = () => {
+  const year = useSelector((state: RootState) => state.year.year);
   return (
     <Stack.Navigator>
       <Stack.Screen
         name="TopTarNavigation"
         component={TopTarNavigation}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen name="CreatePerson" component={CreatePerson} />
-      <Stack.Screen name="CreateGift" component={CreateGift} />
-    </Stack.Navigator>
-  );
-};
-
-const DrawerNavigation = () => {
-  const year = useSelector((state: RootState) => state.year.year);
-  return (
-    <Drawer.Navigator
-      drawerContent={(props) => <CustomDrawerContent {...props} />}>
-      <Drawer.Screen
-        name={'Liste Noël ' + year}
-        component={StackNavigation}
         options={({navigation}) => ({
           title: 'Liste Noël ' + year.toString(),
           headerLeft: () => (
@@ -65,6 +51,25 @@ const DrawerNavigation = () => {
           ),
         })}
       />
+      <Stack.Screen
+        name="CreatePerson"
+        component={CreatePerson}
+        options={{headerTitle: 'Ajouter une personne'}}
+      />
+      <Stack.Screen name="CreateGift" component={CreateGift} />
+    </Stack.Navigator>
+  );
+};
+
+const DrawerNavigation = () => {
+  return (
+    <Drawer.Navigator
+      drawerContent={(props) => <CustomDrawerContent {...props} />}>
+      <Drawer.Screen
+        name="StackNavigation"
+        options={{headerShown: false}}
+        component={StackNavigation}
+      />
       <Drawer.Screen name="Gérer mes listes" component={YearList} />
     </Drawer.Navigator>
   );
@@ -72,20 +77,24 @@ const DrawerNavigation = () => {
 
 const RootStackNavigation = () => {
   const isLoaded = useSelector((state: RootState) => state.auth.isLoaded);
-  const user = useSelector((state: RootState) => state.auth.user);
+  const {user} = useSelector((state: RootState) => state.auth.user) || {};
   if (isLoaded) {
     return <Loading />;
   }
 
   return (
     <NavigationContainer>
-      <RootStack.Navigator headerMode="none">
-        {user == null ? (
-          <RootStack.Screen name="GoogleLogin" component={GoogleLogin} />
-        ) : (
-          <RootStack.Screen name="Drawer" component={DrawerNavigation} />
-        )}
-      </RootStack.Navigator>
+      <Container>
+        <Root>
+          <RootStack.Navigator headerMode="none">
+            {user == null ? (
+              <RootStack.Screen name="GoogleLogin" component={GoogleLogin} />
+            ) : (
+              <RootStack.Screen name="Drawer" component={DrawerNavigation} />
+            )}
+          </RootStack.Navigator>
+        </Root>
+      </Container>
     </NavigationContainer>
   );
 };
