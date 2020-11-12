@@ -14,6 +14,8 @@ import {RootState} from 'store';
 import Loading from 'screens/Loading';
 import GoogleLogin from 'screens/GoogleLogin';
 import CustomDrawerContent from './CustomDrawerContent';
+import CreatePerson from 'screens/CreatePerson';
+import CreateGift from 'screens/CreateGift';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -36,6 +38,8 @@ const StackNavigation = () => {
         component={TopTarNavigation}
         options={{headerShown: false}}
       />
+      <Stack.Screen name="CreatePerson" component={CreatePerson} />
+      <Stack.Screen name="CreateGift" component={CreateGift} />
     </Stack.Navigator>
   );
 };
@@ -56,7 +60,7 @@ const DrawerNavigation = () => {
               onPress={() => {
                 navigation.toggleDrawer();
               }}>
-              <Icon name="gift" type="font-awesome-5" />
+              <Icon name="gifts" type="font-awesome-5" />
             </TouchableOpacity>
           ),
         })}
