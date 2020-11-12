@@ -2,12 +2,13 @@ import {
   DrawerContentScrollView,
   DrawerItemList,
   DrawerItem,
+  DrawerContentComponentProps,
 } from '@react-navigation/drawer';
 import React from 'react';
 import {useDispatch} from 'react-redux';
 import {logout} from 'store/auth/actions';
 
-function CustomDrawerContent(props) {
+const CustomDrawerContent = (props: DrawerContentComponentProps) => {
   const dispatch = useDispatch();
   return (
     <DrawerContentScrollView {...props}>
@@ -19,6 +20,6 @@ function CustomDrawerContent(props) {
       />
     </DrawerContentScrollView>
   );
-}
+};
 
 export default CustomDrawerContent;

@@ -29,24 +29,12 @@ const TopTarNavigation = () => (
 );
 
 const StackNavigation = () => {
-  const year = useSelector((state: RootState) => state.year.year);
   return (
     <Stack.Navigator>
       <Stack.Screen
         name="TopTarNavigation"
         component={TopTarNavigation}
-        options={({navigation}) => ({
-          title: 'Gift List ' + year.toString(),
-          headerLeft: () => (
-            <TouchableOpacity
-              style={{marginLeft: 20}}
-              onPress={() => {
-                navigation.toggleDrawer();
-              }}>
-              <Icon name="gift" type="font-awesome" />
-            </TouchableOpacity>
-          ),
-        })}
+        options={{headerShown: false}}
       />
     </Stack.Navigator>
   );
@@ -57,7 +45,22 @@ const DrawerNavigation = () => {
   return (
     <Drawer.Navigator
       drawerContent={(props) => <CustomDrawerContent {...props} />}>
-      <Drawer.Screen name={'Liste Noël ' + year} component={StackNavigation} />
+      <Drawer.Screen
+        name={'Liste Noël ' + year}
+        component={StackNavigation}
+        options={({navigation}) => ({
+          title: 'Liste Noël ' + year.toString(),
+          headerLeft: () => (
+            <TouchableOpacity
+              style={{marginLeft: 20}}
+              onPress={() => {
+                navigation.toggleDrawer();
+              }}>
+              <Icon name="gift" type="font-awesome-5" />
+            </TouchableOpacity>
+          ),
+        })}
+      />
       <Drawer.Screen name="Gérer mes listes" component={YearList} />
     </Drawer.Navigator>
   );
