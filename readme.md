@@ -20,8 +20,15 @@ npx react-native start --reset-cache
 ## TODO
 
 - https://christmas-days.anvil.app/_/api/get_days
+- Utiliser les generics pour le database wrapper
 - I18N
 - Controle Input utilisateur
+- Compléter un max de types ts
+
+## Comment faire ?
+- bouton en overlay sur une tab navigation
+- où mettre les constantes ?
+- Est-ce que ma structure de DB est correct ?
 
 ## DB Schema
 ```javascript
@@ -29,7 +36,7 @@ let databsase = {
     "users": { // avec google auth
         "1": {
             "name": "Guillaume",
-            "contacts": {
+            "persons": {
                 "C1": true
             },
             "gifts": {
@@ -38,7 +45,7 @@ let databsase = {
             "selectedYear": 2020
         }
     },
-    "contacts": {
+    "persons": {
         "C1": {
             "name": "Thibault",
             "budget": 90,
@@ -53,16 +60,13 @@ let databsase = {
                 "title": "Trotinette",
                 "imageUrl": "...",
                 "user": "1",
-                "contact": "C1"
+                "person": "C1"
             }
         },
         "2021": {
 
         }
-    },
-    "years": [
-      2020, 2021, 2022 
-    ]   
+    }, 
 }
 
 ```

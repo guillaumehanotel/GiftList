@@ -56,7 +56,11 @@ const StackNavigation = () => {
         component={CreatePerson}
         options={{headerTitle: 'Ajouter une personne'}}
       />
-      <Stack.Screen name="CreateGift" component={CreateGift} />
+      <Stack.Screen
+        name="CreateGift"
+        component={CreateGift}
+        options={{headerTitle: 'Ajouter un cadeau'}}
+      />
     </Stack.Navigator>
   );
 };

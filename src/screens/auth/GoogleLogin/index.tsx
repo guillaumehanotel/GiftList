@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Button} from 'react-native';
+import {View, Button, StyleSheet} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin, User} from '@react-native-community/google-signin';
 import {useDispatch} from 'react-redux';
@@ -16,6 +16,7 @@ const GoogleLogin = () => {
   const dispatch = useDispatch();
 
   const _getOrSaveUserFromDatabase = async (userCredential: User) => {
+    // TODO : refactor in DB
     const storedUser = await database()
       .ref('/users/' + userCredential.user.id)
       .once('value' as FirebaseDatabaseTypes.EventType);
@@ -43,10 +44,19 @@ const GoogleLogin = () => {
   };
 
   return (
-    <View style={{alignItems: 'center', flex: 1, justifyContent: 'center'}}>
+    <View style={styles.login}>
       <Button title="Google Sign-In" onPress={() => _onGoogleButtonPress()} />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  login: {
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center',
+  },
+});
+
 
 export default GoogleLogin;

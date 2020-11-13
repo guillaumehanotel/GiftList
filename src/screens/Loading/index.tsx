@@ -1,9 +1,11 @@
 import React, {useEffect} from 'react';
-import {View, ActivityIndicator} from 'react-native';
+import {View, ActivityIndicator, StyleSheet} from 'react-native';
 import {setIsLoaded, setUser} from 'store/auth/actions';
 import {useDispatch, useSelector} from 'react-redux';
 import {GoogleSignin, User} from '@react-native-community/google-signin';
 import {RootState} from 'store';
+import {setYear} from 'store/year/actions';
+import {getUserSelectedYear} from 'database/user';
 
 GoogleSignin.configure({
   webClientId:
@@ -21,20 +23,31 @@ const Loading = () => {
         if (user == null) {
           const currentUser = (await GoogleSignin.getCurrentUser()) as User;
           dispatch(setUser(currentUser));
-        } else {
-          dispatch(setIsLoaded(false));
         }
-      } else {
-        dispatch(setIsLoaded(false));
+        if (user) {
+          const year = await getUserSelectedYear(user);
+          dispatch(setYear(year));
+        }
+        setTimeout(() => {
+          dispatch(setIsLoaded(false));
+        }, 20);
       }
     })();
   });
 
   return (
-    <View style={{alignItems: 'center', flex: 1, justifyContent: 'center'}}>
+    <View style={styles.loading}>
       <ActivityIndicator size="large" color="#ff0000" />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  loading: {
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center',
+  },
+});
 
 export default Loading;
