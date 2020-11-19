@@ -12,11 +12,12 @@ import UserList from 'screens/person/List';
 import YearList from '@screens/YearList';
 import GiftList from 'screens/gift/List';
 import Stats from '@screens/stats';
-import Loading from 'screens/Loading';
+import Loading from '@screens/loading';
 import GoogleLogin from 'screens/auth/GoogleLogin';
 import CustomDrawerContent from './CustomDrawerContent';
 import CreatePerson from 'screens/person/New';
 import CreateGift from 'screens/gift/New';
+import ChooseAvatar from 'screens/person/New/ChooseAvatar';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -57,6 +58,11 @@ const StackNavigation = () => {
         options={{headerTitle: 'Ajouter une personne'}}
       />
       <Stack.Screen
+        name="ChooseAvatar"
+        component={ChooseAvatar}
+        options={{headerTitle: 'Choisir une image'}}
+      />
+      <Stack.Screen
         name="CreateGift"
         component={CreateGift}
         options={{headerTitle: 'Ajouter un cadeau'}}
@@ -82,7 +88,8 @@ const DrawerNavigation = () => {
 const RootStackNavigation = () => {
   const isLoaded = useSelector((state: RootState) => state.auth.isLoaded);
   const {user} = useSelector((state: RootState) => state.auth.user) || {};
-  if (isLoaded) {
+
+  if (!isLoaded) {
     return <Loading />;
   }
 

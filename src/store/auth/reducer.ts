@@ -1,14 +1,13 @@
 import {
   AuthActionTypes,
   AuthState,
-  LOGOUT,
   SET_LOADING,
   SET_USER,
 } from 'store/auth/types';
 
 const initialState: AuthState = {
   user: null,
-  isLoaded: true,
+  isLoaded: false,
 };
 
 export const authReducer = (state = initialState, action: AuthActionTypes) => {
@@ -17,11 +16,6 @@ export const authReducer = (state = initialState, action: AuthActionTypes) => {
       return {
         ...state,
         user: action.user,
-      };
-    case LOGOUT:
-      return {
-        ...state,
-        user: null,
       };
     case SET_LOADING:
       return {

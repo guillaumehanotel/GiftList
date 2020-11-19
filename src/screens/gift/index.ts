@@ -8,6 +8,7 @@ export interface GiftForm {
 
 export interface Gift {
   key: string;
+  title: string;
   price: number;
   notes: string;
   person: string;

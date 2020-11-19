@@ -1,11 +1,8 @@
 import React from 'react';
 import {View, Button, StyleSheet} from 'react-native';
-import auth from '@react-native-firebase/auth';
-import {GoogleSignin, User} from '@react-native-community/google-signin';
+import {GoogleSignin} from '@react-native-community/google-signin';
 import {useDispatch} from 'react-redux';
-import {setUser} from 'store/auth/actions';
-import database, {FirebaseDatabaseTypes} from '@react-native-firebase/database';
-import {setYear} from 'store/year/actions';
+import {login} from 'store/auth/actions';
 
 GoogleSignin.configure({
   webClientId:
@@ -15,32 +12,8 @@ GoogleSignin.configure({
 const GoogleLogin = () => {
   const dispatch = useDispatch();
 
-  const _getOrSaveUserFromDatabase = async (userCredential: User) => {
-    // TODO : refactor in DB
-    const storedUser = await database()
-      .ref('/users/' + userCredential.user.id)
-      .once('value' as FirebaseDatabaseTypes.EventType);
-    let selectedYear = new Date().getFullYear();
-    if (!storedUser.exists()) {
-      await database()
-        .ref('/users/' + userCredential.user.id)
-        .set({
-          name: userCredential.user.name,
-          email: userCredential.user.email,
-          selectedYear: selectedYear,
-        });
-    } else {
-      selectedYear = storedUser.child('selectedYear').val();
-    }
-    dispatch(setYear(selectedYear));
-  };
-
   const _onGoogleButtonPress = async () => {
-    const user = await GoogleSignin.signIn();
-    const googleCredential = auth.GoogleAuthProvider.credential(user.idToken);
-    dispatch(setUser(user));
-    await _getOrSaveUserFromDatabase(user);
-    return auth().signInWithCredential(googleCredential);
+    await dispatch(login());
   };
 
   return (
@@ -57,6 +30,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-
 
 export default GoogleLogin;

@@ -22,13 +22,13 @@ const ButtonNew = () => {
   ];
 
   return (
-    <View>
+    <View style={styles.buttons}>
       <TouchableOpacity
         style={styles.buttonNew}
         onPress={() => setdisplayBtnNewItem(!displayBtnNewItem)}>
         <Icon name="plus" type="font-awesome-5" color="white" />
       </TouchableOpacity>
-      <View style={styles.buttons}>
+      <View style={styles.buttonsNewItem}>
         {buttonNewItems.map((item, index) => (
           <ButtonNewItem
             key={index}
@@ -43,6 +43,17 @@ const ButtonNew = () => {
 };
 
 const styles = StyleSheet.create({
+  buttons: {
+    position: 'absolute',
+    // borderWidth: 1,
+    top: 258,
+    left: 130,
+    flex: 1,
+    height: 180,
+    alignItems: 'flex-end',
+    flexDirection: 'column-reverse',
+    zIndex: 50,
+  },
   buttonNew: {
     backgroundColor: 'red',
     borderRadius: 50,
@@ -50,17 +61,11 @@ const styles = StyleSheet.create({
     height: 45,
     justifyContent: 'center',
     alignItems: 'center',
-    position: 'absolute',
-    bottom: -400,
-    right: 40,
   },
-  buttons: {
+  buttonsNewItem: {
     flex: 1,
     height: 130,
     width: 210,
-    bottom: -340,
-    right: 40,
-    position: 'absolute',
     justifyContent: 'space-around',
   },
 });

@@ -1,6 +1,7 @@
 import {User} from '@react-native-community/google-signin';
 import {Person, PersonForm} from 'screens/person';
 import database from '@react-native-firebase/database';
+import {toInt} from 'helpers';
 
 export const getPersons = async ({user}: User): Promise<Person[]> => {
   const userPersonKeyList = Object.keys(
@@ -19,14 +20,20 @@ export const getPersons = async ({user}: User): Promise<Person[]> => {
   return persons;
 };
 
-export const storePerson = async (personForm: PersonForm): Promise<string> => {
+export const storePerson = async (
+  user: User,
+  personForm: PersonForm,
+): Promise<string> => {
   const newPersonReference = await database()
     .ref('/persons')
     .push({
       name: personForm.name,
-      budget: personForm.budget === '' ? 0 : parseInt(personForm.budget, 10),
+      budget: toInt(personForm.budget),
+      icon: personForm.icon,
     });
-  return newPersonReference.key as string;
+  const newPersonKey = newPersonReference.key as string;
+  await associatePersonToUser(user, newPersonKey);
+  return newPersonKey;
 };
 
 export const associatePersonToUser = async (

@@ -1,7 +1,7 @@
 import {
   storeGift,
   associateGiftToUser,
-  getGifts,
+  getUserGiftsByYear,
   associateGiftToPerson,
 } from 'database/gift';
 import {storePerson, associatePersonToUser, getPersons} from 'database/person';
@@ -9,7 +9,7 @@ import {storePerson, associatePersonToUser, getPersons} from 'database/person';
 export {
   storeGift,
   associateGiftToUser,
-  getGifts,
+  getUserGiftsByYear,
   storePerson,
   associatePersonToUser,
   getPersons,

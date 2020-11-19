@@ -1,11 +1,17 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {Text} from 'react-native';
+import {ListItem} from 'native-base';
+import {Gift} from 'screens/gift';
 
-const GiftItem = () => {
+interface GiftItemProps {
+  gift: Gift;
+}
+
+const GiftItem = ({gift}: GiftItemProps) => {
   return (
-    <View>
-      <Text>GiftItem</Text>
-    </View>
+    <ListItem>
+      <Text>{gift.title}</Text>
+    </ListItem>
   );
 };
 

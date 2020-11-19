@@ -2,7 +2,6 @@ import {User} from '@react-native-community/google-signin';
 
 export const SET_USER = 'SET_USER';
 export const SET_LOADING = 'SET_LOADING';
-export const LOGOUT = 'LOGOUT';
 
 export interface AuthState {
   user: User | null;
@@ -11,11 +10,7 @@ export interface AuthState {
 
 interface SetUserAction {
   type: typeof SET_USER;
-  user: User;
-}
-
-interface LogoutAction {
-  type: typeof LOGOUT;
+  user: User | null;
 }
 
 interface SetIsLoadedAction {
@@ -23,4 +18,4 @@ interface SetIsLoadedAction {
   isLoaded: boolean;
 }
 
-export type AuthActionTypes = SetIsLoadedAction | SetUserAction | LogoutAction;
+export type AuthActionTypes = SetIsLoadedAction | SetUserAction;

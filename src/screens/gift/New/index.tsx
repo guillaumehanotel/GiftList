@@ -43,6 +43,7 @@ const CreateGift = () => {
   const _submitGiftForm = useCallback(async () => {
     if (giftForm.title && giftForm.person && giftForm.state) {
       await _saveGift();
+      navigation.goBack();
     } else {
       Toast.show({
         type: 'warning',
@@ -50,7 +51,7 @@ const CreateGift = () => {
         buttonText: 'Okay',
       });
     }
-  }, [_saveGift, giftForm]);
+  }, [_saveGift, giftForm, navigation]);
 
   useLayoutEffect(() => {
     navigation.setOptions({

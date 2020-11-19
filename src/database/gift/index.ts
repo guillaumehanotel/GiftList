@@ -2,17 +2,25 @@ import {User} from '@react-native-community/google-signin';
 import {Gift, GiftForm} from 'screens/gift';
 import database from '@react-native-firebase/database';
 
-export const getGifts = async ({user}: User): Promise<Gift[]> => {
-  const userGiftKeyList = Object.keys(
-    (await database().ref(`/users/${user?.id}/gifts`).once('value')).val(),
-  );
+export const getUserGiftsByYear = async (
+  {user}: User,
+  year: number,
+): Promise<Gift[]> => {
   const gifts = [];
-  for (let key of userGiftKeyList) {
-    const gift = (await database().ref(`/gifts/${key}`).once('value')).val();
-    gifts.push({
-      key: key,
-      ...gift,
-    });
+  const userGiftList = (
+    await database().ref(`/users/${user?.id}/gifts`).once('value')
+  ).val();
+  if (userGiftList !== null) {
+    const userGiftKeyList = Object.keys(userGiftList);
+    for (let key of userGiftKeyList) {
+      const gift = (
+        await database().ref(`/gifts/${year}/${key}`).once('value')
+      ).val();
+      gifts.push({
+        key: key,
+        ...gift,
+      });
+    }
   }
   return gifts;
 };
