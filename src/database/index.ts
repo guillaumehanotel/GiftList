@@ -4,13 +4,13 @@ import {
   getUserGiftsByYear,
   associateGiftToPerson,
 } from 'database/gift';
-import {storePerson, associatePersonToUser, getPersons} from 'database/person';
+import {savePersonDatabase, associatePersonToUser, getPersons} from 'database/person';
 
 export {
   storeGift,
   associateGiftToUser,
   getUserGiftsByYear,
-  storePerson,
+  savePersonDatabase,
   associatePersonToUser,
   getPersons,
   associateGiftToPerson,

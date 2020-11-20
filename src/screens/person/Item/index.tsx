@@ -1,49 +1,42 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Person} from 'screens/person';
 import images from 'assets';
 import {useSelector} from 'react-redux';
 import {RootState} from 'store';
-import {Gift} from 'screens/gift';
+import {useNavigation} from '@react-navigation/native';
+import {filterGiftsByUserPerson} from 'database/gift';
 
 interface PersonItemProps {
   person: Person;
 }
 
 const PersonItem = ({person}: PersonItemProps) => {
+  const navigation = useNavigation();
   const gifts = useSelector((state: RootState) => state.gift.gifts);
   const [giftNumber, setGiftNumber] = useState(0);
 
-  /**
-   * Il faudrait idéalement utiliser un Selector avec reselect ou
-   * re-reselect mais trop complexe => KISS
-   */
-  const _getGiftsByUserPerson = useCallback(() => {
-    const personGifts: Gift[] = [];
-    if (person.attributedGifts) {
-      personGifts.push(
-        ...gifts.filter((gift: Gift) => gift.person === person.key),
-      );
-    }
-    return personGifts;
-  }, [gifts, person]);
-
   useEffect(() => {
     (async () => {
-      const personGifts = await _getGiftsByUserPerson();
+      const personGifts = await filterGiftsByUserPerson(gifts, person);
       setGiftNumber(personGifts.length);
     })();
-  }, [_getGiftsByUserPerson]);
+  }, [gifts, person]);
 
   return (
-    <View style={styles.personItem}>
-      {/* @ts-ignore */}
-      <Image source={images[person.icon]} style={styles.avatar} />
-      <View>
-        <Text>{person.name}</Text>
-        <Text>X / {giftNumber} cadeaux achetés.</Text>
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate('FormPerson', {addMode: false, person: person});
+      }}>
+      <View style={styles.personItem}>
+        {/* @ts-ignore */}
+        <Image source={images[person.icon]} style={styles.avatar} />
+        <View>
+          <Text>{person.name}</Text>
+          <Text>X / {giftNumber} cadeaux achetés.</Text>
+        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

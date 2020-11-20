@@ -2,6 +2,8 @@ import {User} from '@react-native-community/google-signin';
 import {Person, PersonForm} from 'screens/person';
 import database from '@react-native-firebase/database';
 import {toInt} from 'helpers';
+import {Gift} from 'screens/gift';
+import {getYears} from 'database/year';
 
 export const getPersons = async ({user}: User): Promise<Person[]> => {
   const userPersonKeyList = Object.keys(
@@ -20,7 +22,7 @@ export const getPersons = async ({user}: User): Promise<Person[]> => {
   return persons;
 };
 
-export const storePerson = async (
+export const savePersonDatabase = async (
   user: User,
   personForm: PersonForm,
 ): Promise<string> => {
@@ -51,4 +53,27 @@ export const associatePersonToUser = async (
       // @ts-ignore
       [newPersonKey]: true,
     });
+};
+
+export const updatePersonDatabase = async (person: Person) => {
+  await database().ref(`/persons/${person.key}`).update({
+    name: person.name,
+    budget: person.budget,
+    icon: person.icon,
+  });
+};
+
+/**
+ * Supprime une personne en DB
+ * Supprime son lien avec le user et supprime tout ses cadeaux
+ */
+export const removePersonDatabase = async ({user}: User, person: Person) => {
+  await database().ref(`/persons/${person.key}`).remove();
+  await database().ref(`/users/${user.id}/persons/${person.key}`).remove();
+  const years = await getYears();
+  for (let year of years) {
+    for (let giftKey in person.attributedGifts) {
+      await database().ref(`/gifts/${year}/${giftKey}`).remove();
+    }
+  }
 };

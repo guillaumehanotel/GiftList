@@ -38,7 +38,9 @@ const ButtonNewItem = ({item, displayBtnNewItem}: ButtonNewItemProps) => {
     <Animated.View style={[styles.animatedView, {opacity: fadeAnim}]}>
       <Text style={styles.buttonNewItemLabel}>{item.label}</Text>
       <AnimatedTouchable
-        onPress={() => navigation.navigate(item.callbackComponent.name)}
+        onPress={() =>
+          navigation.navigate(item.callbackComponent.name, {addMode: true})
+        }
         style={styles.buttonNewItem}>
         <Icon name={item.icon} type="font-awesome-5" color="white" size={18} />
       </AnimatedTouchable>

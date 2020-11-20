@@ -1,6 +1,7 @@
 import {User} from '@react-native-community/google-signin';
 import {Gift, GiftForm} from 'screens/gift';
 import database from '@react-native-firebase/database';
+import {Person} from 'screens/person';
 
 export const getUserGiftsByYear = async (
   {user}: User,
@@ -13,13 +14,16 @@ export const getUserGiftsByYear = async (
   if (userGiftList !== null) {
     const userGiftKeyList = Object.keys(userGiftList);
     for (let key of userGiftKeyList) {
-      const gift = (
-        await database().ref(`/gifts/${year}/${key}`).once('value')
-      ).val();
-      gifts.push({
-        key: key,
-        ...gift,
-      });
+      const giftRef = await database()
+        .ref(`/gifts/${year}/${key}`)
+        .once('value');
+      if (giftRef.exists()) {
+        const gift = giftRef.val();
+        gifts.push({
+          key: key,
+          ...gift,
+        });
+      }
     }
   }
   return gifts;
@@ -73,4 +77,14 @@ export const associateGiftToPerson = async (
       ...existingAttributedGifts,
       [newGiftKey]: true,
     });
+};
+
+export const filterGiftsByUserPerson = (gifts: Gift[], person: Person) => {
+  const personGifts: Gift[] = [];
+  if (person.attributedGifts) {
+    personGifts.push(
+      ...gifts.filter((gift: Gift) => gift.person === person.key),
+    );
+  }
+  return personGifts;
 };

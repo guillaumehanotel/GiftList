@@ -11,7 +11,7 @@ const ChooseAvatar = () => {
       {Object.keys(images).map((image, index) => (
         <TouchableOpacity
           key={index}
-          onPress={() => navigation.navigate('CreatePerson', {avatar: image})}>
+          onPress={() => navigation.navigate('FormPerson', {avatar: image})}>
           {/* @ts-ignore */}
           <Image style={styles.avatar} source={images[image]} />
         </TouchableOpacity>

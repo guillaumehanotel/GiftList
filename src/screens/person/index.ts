@@ -11,3 +11,11 @@ export interface Person {
   icon: string;
   attributedGifts?: object;
 }
+
+export type ParamForm = {
+  FormPerson: {
+    avatar: string;
+    addMode: boolean;
+    person?: Person;
+  };
+};
