@@ -12,7 +12,7 @@ export interface Person {
   attributedGifts?: object;
 }
 
-export type ParamForm = {
+export type ParamPersonForm = {
   FormPerson: {
     avatar: string;
     addMode: boolean;

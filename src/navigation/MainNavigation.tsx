@@ -16,8 +16,8 @@ import Loading from '@screens/loading';
 import GoogleLogin from 'screens/auth/GoogleLogin';
 import CustomDrawerContent from './CustomDrawerContent';
 import FormPerson from 'screens/person/Form';
-import CreateGift from 'screens/gift/New';
 import ChooseAvatar from 'screens/person/Form/ChooseAvatar';
+import FormGift from 'screens/gift/Form';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -63,8 +63,8 @@ const StackNavigation = () => {
         options={{headerTitle: 'Choisir une image'}}
       />
       <Stack.Screen
-        name="CreateGift"
-        component={CreateGift}
+        name="FormGift"
+        component={FormGift}
         options={{headerTitle: 'Ajouter un cadeau'}}
       />
     </Stack.Navigator>

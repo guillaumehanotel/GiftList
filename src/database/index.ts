@@ -1,5 +1,5 @@
 import {
-  storeGift,
+  saveGiftDatabase,
   associateGiftToUser,
   getUserGiftsByYear,
   associateGiftToPerson,
@@ -7,7 +7,7 @@ import {
 import {savePersonDatabase, associatePersonToUser, getPersons} from 'database/person';
 
 export {
-  storeGift,
+  saveGiftDatabase,
   associateGiftToUser,
   getUserGiftsByYear,
   savePersonDatabase,

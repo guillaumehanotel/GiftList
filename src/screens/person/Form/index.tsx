@@ -13,7 +13,7 @@ import {Icon} from 'react-native-elements';
 import {useNavigation, useRoute, RouteProp} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'store';
-import {PersonForm, ParamForm} from 'screens/person';
+import {PersonForm, ParamPersonForm} from 'screens/person';
 import {User} from '@react-native-community/google-signin';
 import images from 'assets';
 import {rand, toString} from 'helpers';
@@ -28,7 +28,7 @@ const FormPerson = () => {
   });
   const [formError, setFormError] = useState<boolean>(false);
   const navigation = useNavigation();
-  const route = useRoute<RouteProp<ParamForm, 'FormPerson'>>();
+  const route = useRoute<RouteProp<ParamPersonForm, 'FormPerson'>>();
   const dispatch = useDispatch();
 
   /**

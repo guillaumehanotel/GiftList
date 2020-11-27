@@ -2,6 +2,7 @@ import {User} from '@react-native-community/google-signin';
 import {Gift, GiftForm} from 'screens/gift';
 import database from '@react-native-firebase/database';
 import {Person} from 'screens/person';
+import {toInt} from 'helpers';
 
 export const getUserGiftsByYear = async (
   {user}: User,
@@ -29,20 +30,24 @@ export const getUserGiftsByYear = async (
   return gifts;
 };
 
-export const storeGift = async (
-  giftForm: GiftForm,
+export const saveGiftDatabase = async (
+  user: User,
   year: number,
+  giftForm: GiftForm,
 ): Promise<string> => {
   const newGiftReference = await database()
     .ref(`/gifts/${year}`)
     .push({
       title: giftForm.title,
-      price: giftForm.price === '' ? 0 : parseInt(giftForm.price, 10),
-      person: giftForm.person,
+      price: toInt(giftForm.price),
+      person: giftForm.personKey,
       notes: giftForm.notes,
       state: giftForm.state,
     });
-  return newGiftReference.key as string;
+  const newGiftKey = newGiftReference.key as string;
+  await associateGiftToUser(user, newGiftKey);
+  await associateGiftToPerson(giftForm.personKey, newGiftKey);
+  return newGiftKey;
 };
 
 export const associateGiftToUser = async ({user}: User, newGiftKey: string) => {
@@ -79,11 +84,33 @@ export const associateGiftToPerson = async (
     });
 };
 
+export const updateGiftDatabase = async (gift: Gift, year: number) => {
+  await database().ref(`/gifts/${year}/${gift.key}`).update({
+    title: gift.title,
+    notes: gift.notes,
+    state: gift.state,
+    person: gift.personKey,
+    price: gift.price,
+  });
+};
+
+export const removeGiftDatabase = async (
+  {user}: User,
+  gift: Gift,
+  year: number,
+) => {
+  await database().ref(`/gifts/${year}/${gift.key}`).remove();
+  await database().ref(`/users/${user.id}/gifts/${gift.key}`).remove();
+  await database()
+    .ref(`/persons/${gift.personKey}/attributedGifts/${gift.key}`)
+    .remove();
+};
+
 export const filterGiftsByUserPerson = (gifts: Gift[], person: Person) => {
   const personGifts: Gift[] = [];
   if (person.attributedGifts) {
     personGifts.push(
-      ...gifts.filter((gift: Gift) => gift.person === person.key),
+      ...gifts.filter((gift: Gift) => gift.personKey === person.key),
     );
   }
   return personGifts;

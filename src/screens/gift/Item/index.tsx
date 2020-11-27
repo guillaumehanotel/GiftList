@@ -1,18 +1,36 @@
 import React from 'react';
-import {Text} from 'react-native';
-import {ListItem} from 'native-base';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Gift} from 'screens/gift';
+import {useNavigation} from '@react-navigation/native';
 
 interface GiftItemProps {
   gift: Gift;
 }
 
 const GiftItem = ({gift}: GiftItemProps) => {
+  const navigation = useNavigation();
+
   return (
-    <ListItem>
-      <Text>{gift.title}</Text>
-    </ListItem>
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate('FormGift', {addMode: false, gift: gift});
+      }}>
+      <View style={styles.giftItem}>
+        <Text>{gift.title}</Text>
+      </View>
+    </TouchableOpacity>
   );
 };
+
+const styles = StyleSheet.create({
+  giftItem: {
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(0,0,0,0.1)',
+    height: 77,
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+});
 
 export default GiftItem;

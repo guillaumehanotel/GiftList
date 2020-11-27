@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View, TouchableOpacity, StyleSheet} from 'react-native';
 import {Icon} from 'react-native-elements';
 import FormPerson from 'screens/person/Form';
-import CreateGift from 'screens/gift/New';
+import FormGift from 'screens/gift/Form';
 import ButtonNewItem, {ButtonNewItemType} from 'components/ButtonNewItem';
 
 const ButtonNew = () => {
@@ -17,7 +17,7 @@ const ButtonNew = () => {
     {
       label: 'Nouveau cadeau',
       icon: 'gift',
-      callbackComponent: CreateGift,
+      callbackComponent: FormGift,
     },
   ];
 

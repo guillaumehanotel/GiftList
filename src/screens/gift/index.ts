@@ -2,7 +2,7 @@ export interface GiftForm {
   title: string;
   price: string;
   notes: string;
-  person: string;
+  personKey: string;
   state: string;
 }
 
@@ -11,9 +11,16 @@ export interface Gift {
   title: string;
   price: number;
   notes: string;
-  person: string;
+  personKey: string;
   state: string;
 }
+
+export type ParamGiftForm = {
+  FormGift: {
+    addMode: boolean;
+    gift?: Gift;
+  };
+};
 
 export interface PersonItem {
   key: string;
