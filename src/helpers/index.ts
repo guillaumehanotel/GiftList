@@ -6,3 +6,10 @@ export const toInt = (string: string) =>
 
 export const toString = (number: number) =>
   number === 0 ? '' : number.toString();
+
+export const makeColor = (colorNum: number, colors: number) => {
+  if (colors < 1) {
+    colors = 1;
+  } // defaults to one color - avoid divide by zero
+  return (colorNum * (360 / colors)) % 360;
+};

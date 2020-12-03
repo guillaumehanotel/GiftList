@@ -31,7 +31,7 @@ export const personReducer = (
       let person = action.person;
       let clone = JSON.parse(JSON.stringify(state.persons));
       const index = clone.findIndex((obj: Person) => obj.key === person.key);
-      if (index !== 1) {
+      if (index !== -1) {
         clone[index] = person;
       }
       return {

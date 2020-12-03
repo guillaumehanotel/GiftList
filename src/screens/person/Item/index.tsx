@@ -21,6 +21,7 @@ const PersonItem = ({person}: PersonItemProps) => {
   useEffect(() => {
     (async () => {
       const personGifts = await filterGiftsByUserPerson(gifts, person);
+      console.log(personGifts);
       setGiftNumber(personGifts.length);
       setPurchasedGiftNumber(
         personGifts.filter(

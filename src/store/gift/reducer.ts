@@ -28,7 +28,7 @@ export const giftReducer = (state = initialState, action: GiftActionTypes) => {
       let gift = action.gift;
       let clone = JSON.parse(JSON.stringify(state.gifts));
       const index = clone.findIndex((obj: Gift) => obj.key === gift.key);
-      if (index !== 1) {
+      if (index !== -1) {
         clone[index] = gift;
       }
       return {

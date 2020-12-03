@@ -113,6 +113,7 @@ const FormGift = () => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
+      headerTitle: (route.params.addMode ? 'Ajouter' : 'Éditer') + ' un cadeau',
       headerRight: () => (
         <View style={{flexDirection: 'row-reverse'}}>
           {renderAddSubmitButton()}

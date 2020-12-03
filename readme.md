@@ -17,23 +17,13 @@ rm -rf node_modules/ && npm cache clean --force && npm install
 npx react-native start --reset-cache
 ```
 
-## TODO
-
-- Commentaires
-- https://christmas-days.anvil.app/_/api/get_days
-- I18N
-
-## Questions ?
+## Interrogations
 - Bouton en overlay sur une tab navigation
-- où mettre les constantes ?
-- Est-ce que ma structure de DB est correct ?
+- Où mettre les constantes ?
+- Dans quel cas d'usage l'utilisation d'une DB Firebase est plus pertinent qu'une DB relationnelle ? 
 - Faire des getters avec paramètre sur le state est assez compliqué
 - Pourquoi on utilise encore le connect / mapStateToProps / mapDispatchToProps (https://redux.js.org/recipes/computing-derived-data)
-alors que la méthode qui semble être privilégié est l'utilisation des 
-hooks (useDispatch)
-- Ai-je bien fait de mettre les cadeaux et les personnes dans le state global ?
-- Si non, quelle est la méthode privilégiée pour récupérer dans la liste
-une nouvelle entité qui vient d'être créé ? 
+alors que la méthode qui semble être privilégié est l'utilisation des hooks (useDispatch)
 
 ## DB Schema
 ```javascript

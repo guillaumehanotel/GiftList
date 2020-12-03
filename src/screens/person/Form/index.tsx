@@ -138,8 +138,9 @@ const FormPerson = () => {
   }, [_submitPersonDeletion]);
 
   useLayoutEffect(() => {
-    // TODO : changer le titre
     navigation.setOptions({
+      headerTitle:
+        (route.params.addMode ? 'Ajouter' : 'Éditer') + ' une personne',
       headerRight: () => (
         <View style={{flexDirection: 'row-reverse'}}>
           {renderAddSubmitButton()}
@@ -180,7 +181,6 @@ const FormPerson = () => {
           <TouchableOpacity
             style={{alignItems: 'center', marginTop: 15}}
             onPress={async () => {
-              // TODO async storage
               try {
                 await AsyncStorage.setItem(
                   'personForm',
