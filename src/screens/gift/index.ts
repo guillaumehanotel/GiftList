@@ -11,7 +11,7 @@ export interface Gift {
   title: string;
   price: number;
   notes: string;
-  personKey: string;
+  person: string;
   state: string;
 }
 

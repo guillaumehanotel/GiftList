@@ -34,7 +34,7 @@ export function saveGift(user: User, year: number, giftForm: GiftForm) {
       title: giftForm.title,
       notes: giftForm.notes,
       state: giftForm.state,
-      personKey: giftForm.personKey,
+      person: giftForm.personKey,
       price: toInt(giftForm.price),
     };
     dispatch(addGift(gift));

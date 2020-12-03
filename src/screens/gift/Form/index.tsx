@@ -41,7 +41,7 @@ const FormGift = () => {
           title: gift.title,
           price: toString(gift.price),
           notes: gift.notes,
-          personKey: gift.personKey,
+          personKey: gift.person,
           state: gift.state,
         });
       }

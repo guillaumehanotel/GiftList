@@ -6,6 +6,7 @@ import {useSelector} from 'react-redux';
 import {RootState} from 'store';
 import {useNavigation} from '@react-navigation/native';
 import {filterGiftsByUserPerson} from 'database/gift';
+import {Gift} from 'screens/gift';
 
 interface PersonItemProps {
   person: Person;
@@ -15,11 +16,17 @@ const PersonItem = ({person}: PersonItemProps) => {
   const navigation = useNavigation();
   const gifts = useSelector((state: RootState) => state.gift.gifts);
   const [giftNumber, setGiftNumber] = useState(0);
+  const [purchasedGiftNumber, setPurchasedGiftNumber] = useState(0);
 
   useEffect(() => {
     (async () => {
       const personGifts = await filterGiftsByUserPerson(gifts, person);
       setGiftNumber(personGifts.length);
+      setPurchasedGiftNumber(
+        personGifts.filter(
+          (gift: Gift) => !['Idée', 'A acheter'].includes(gift.state),
+        ).length,
+      );
     })();
   }, [gifts, person]);
 
@@ -33,7 +40,9 @@ const PersonItem = ({person}: PersonItemProps) => {
         <Image source={images[person.icon]} style={styles.avatar} />
         <View>
           <Text>{person.name}</Text>
-          <Text>X / {giftNumber} cadeaux achetés.</Text>
+          <Text>
+            {purchasedGiftNumber} / {giftNumber} cadeaux achetés.
+          </Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -48,6 +57,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
+    backgroundColor: 'white',
   },
   avatar: {
     height: 60,

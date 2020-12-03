@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text} from 'react-native';
+import {StyleSheet, Text} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'store';
 import {setYear} from 'store/year/actions';
@@ -23,9 +23,11 @@ const YearList = () => {
 
   return (
     <Content>
-      <Text>Année de la liste de Noël</Text>
-      <Form>
-        <Item picker>
+      <Form style={styles.form}>
+        <Text style={{fontWeight: 'bold', fontSize: 18}}>
+          Année de la liste de Noël :
+        </Text>
+        <Item picker style={styles.inputItem}>
           <Picker
             mode="dropdown"
             iosIcon={<Icon name="arrow-down" />}
@@ -48,5 +50,19 @@ const YearList = () => {
     </Content>
   );
 };
+
+const styles = StyleSheet.create({
+  form: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    height: 100,
+  },
+  inputItem: {
+    backgroundColor: 'white',
+    width: '85%',
+    elevation: 8,
+  },
+});
 
 export default YearList;

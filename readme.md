@@ -21,10 +21,7 @@ npx react-native start --reset-cache
 
 - Commentaires
 - https://christmas-days.anvil.app/_/api/get_days
-- Utiliser les generics pour le database wrapper
 - I18N
-- Controle Input utilisateur
-- Compléter un max de types ts
 
 ## Questions ?
 - Bouton en overlay sur une tab navigation

@@ -25,7 +25,12 @@ const TopBar = createMaterialTopTabNavigator();
 const RootStack = createStackNavigator();
 
 const TopTarNavigation = () => (
-  <TopBar.Navigator>
+  <TopBar.Navigator
+    tabBarOptions={{
+      indicatorStyle: {
+        backgroundColor: 'green',
+      },
+    }}>
     <TopBar.Screen name="Personnes" component={UserList} />
     <TopBar.Screen name="Cadeaux" component={GiftList} />
     <TopBar.Screen name="Stats" component={Stats} />
@@ -41,13 +46,17 @@ const StackNavigation = () => {
         component={TopTarNavigation}
         options={({navigation}) => ({
           title: 'Liste Noël ' + year.toString(),
+          headerStyle: {
+            backgroundColor: '#de0505',
+          },
+          headerTintColor: '#fff',
           headerLeft: () => (
             <TouchableOpacity
               style={{marginLeft: 20}}
               onPress={() => {
                 navigation.toggleDrawer();
               }}>
-              <Icon name="gifts" type="font-awesome-5" />
+              <Icon name="gifts" type="font-awesome-5" color={'white'} />
             </TouchableOpacity>
           ),
         })}
@@ -72,12 +81,14 @@ const StackNavigation = () => {
 };
 
 const DrawerNavigation = () => {
+  const year = useSelector((state: RootState) => state.year.year);
+
   return (
     <Drawer.Navigator
       drawerContent={(props) => <CustomDrawerContent {...props} />}>
       <Drawer.Screen
-        name="StackNavigation"
-        options={{headerShown: false}}
+        name="Liste Noël "
+        options={{headerShown: false, title: 'Liste Noël ' + year.toString()}}
         component={StackNavigation}
       />
       <Drawer.Screen name="Gérer mes listes" component={YearList} />

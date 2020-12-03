@@ -89,7 +89,7 @@ export const updateGiftDatabase = async (gift: Gift, year: number) => {
     title: gift.title,
     notes: gift.notes,
     state: gift.state,
-    person: gift.personKey,
+    person: gift.person,
     price: gift.price,
   });
 };
@@ -102,7 +102,7 @@ export const removeGiftDatabase = async (
   await database().ref(`/gifts/${year}/${gift.key}`).remove();
   await database().ref(`/users/${user.id}/gifts/${gift.key}`).remove();
   await database()
-    .ref(`/persons/${gift.personKey}/attributedGifts/${gift.key}`)
+    .ref(`/persons/${gift.person}/attributedGifts/${gift.key}`)
     .remove();
 };
 
@@ -110,7 +110,7 @@ export const filterGiftsByUserPerson = (gifts: Gift[], person: Person) => {
   const personGifts: Gift[] = [];
   if (person.attributedGifts) {
     personGifts.push(
-      ...gifts.filter((gift: Gift) => gift.personKey === person.key),
+      ...gifts.filter((gift: Gift) => gift.person === person.key),
     );
   }
   return personGifts;
